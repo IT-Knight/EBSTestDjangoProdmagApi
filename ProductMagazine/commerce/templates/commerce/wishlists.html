@@ -1,0 +1,20 @@
+{% extends 'commerce/layout.html' %}
+
+{% block title %}Prod Mag - Wishlists{% endblock %}
+
+
+{% block body %}
+    <ul>
+    {% for wishlist in wishlists %}
+        <li>{{ wishlist.title }} <button onclick="delete_wishlist({{wishlist.id}})" data-id="{{wishlist.id}}" type="button" class="btn-delete">Delete</button></li>
+    {% empty %}
+        No wishlists.
+    {% endfor %}
+    </ul>
+    Create a new one:
+        <form class="create_w_list2">
+            {% csrf_token %}
+            <input type="text" class="form-control" placeholder="Wishlist title..." style="margin-bottom: 3px; width: 35%">
+            <input type="submit" value="Create new">
+        </form>
+{% endblock %}

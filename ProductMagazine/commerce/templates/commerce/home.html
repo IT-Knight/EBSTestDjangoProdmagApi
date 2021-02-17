@@ -1,0 +1,29 @@
+{% extends 'commerce/layout.html' %}
+
+{% block title %}Prod Mag - Home{% endblock %}
+
+{% block body %}
+    <h2>Products List</h2>
+    <ul>
+        <li>path: <a href="{% url 'products' %}"> /products</a></li>
+    </ul>
+    <br>
+    <h2>API DOCUMENTATION</h2>
+    <ul>
+        <li>path:<a href="{% url 'schema-swagger-ui' %}"> /swagger</a></li>
+
+{#        <li>path:<a href="/redoc"> /redoc</a></li>#}
+    </ul>
+    <br>
+    <h2>Admin Panel</h2>
+    <ul>
+    <li><b>path: <a href="/admin">/admin</a></li>Login: <u>admin</u> Password: <u>123</u>  </b> - superuser by default sqlite3 DB
+    </ul>
+    <ul>
+{#        <li>path:<a href="/product"> /product</a> (DRF)</li>#}
+{#        <li>path:<a href="/wishlist"> /wishlist</a> (DRF)</li>#}
+    </ul>
+
+
+
+{% endblock %}

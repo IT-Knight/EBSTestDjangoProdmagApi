@@ -1,0 +1,70 @@
+{% extends 'commerce/layout.html' %}
+
+{% block title %}Prod Mag - Products{% endblock %}
+
+{% block body %}
+    {% if not user.is_authenticated %}
+        <h5><a href="{% url 'login' %}">Login</a> to Create and Modify your Wishlists</h5>
+    {% endif %}
+    <h2>Products</h2>
+    {% for product in products %}
+
+    <div class="card mb-3 product">
+        <div class="row no-gutters">
+            <div class="col-md-8">
+                <div class="card-body">
+                    <h5 class="card-title" ><b>Title:</b> {{ product.title }}</h5>
+                    <h6 class="card-text"><b>Price:</b> {{ product.price }}</h6>
+                    <p class="card-text"><b>Description:</b> {{ product.description }}</p>   {# |truncatechars:500 #}
+                    <p class="card-text">
+                        <small class="text-muted"> SLU: {{ product.slu }}</small><br/>
+                    </p>
+                    <span>Unique wishers: {{product.unique_wishers}}</span>
+                </div>
+            </div>
+        </div>
+        {% if user.is_authenticated %}
+            <button data-id="{{product.id}}" class="btn btn-primary btn_add_to_wl" style="width: 130px">Add to wishlist</button>
+
+        <div class="drop-block">
+{#        ------------------------------------------------------------------------------              #}
+            <form class="choose_w_list" data-id="{{product.id}}">
+                {% csrf_token %}
+            {% if wishlists %}
+                Add/remove product:
+            {% endif %}
+            <div>
+                {% for wishlist in wishlists %}
+                    <label class="container">
+                        {% if product.id in wishlist.products_ids %}
+                            <input type="checkbox" checked="checked" name="{{wishlist.title}}" value="{{wishlist.id}}">
+                        {% else %}
+                            <input type="checkbox" name="{{wishlist.title}}" value="{{wishlist.id}}">
+                        {% endif %}
+                        {{ wishlist.title }}
+                    </label>
+
+                 {% empty %}
+                 {% endfor %}
+            </div>
+                <input class="btn_submit" type="submit" value="Submit">
+            </form>
+
+{#        ------------------------------------------------------------------------------              #}
+            <form class="create_w_list">
+                {% csrf_token %}
+                <input type="text" class="form-control" placeholder="Wishlist title..." style="margin-bottom: 3px">
+                <input type="submit" value="Create new">
+            </form>
+{#        ------------------------------------------------------------------------------              #}
+        </div>
+
+        {% endif %}
+
+    </div>
+    {% empty %}
+        No products added yet
+    {% endfor %}
+
+
+{% endblock %}
