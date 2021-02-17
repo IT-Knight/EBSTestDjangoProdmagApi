@@ -60,7 +60,7 @@ from datetime import timedelta
     path('', include('commerce.urls')),
 
 4. Run ``python manage.py makemigrations` and ``python manage.py migrate`` 
-   (fix simple error if any)
+   (fix simple errors if any)
 
 5. Start the development server
 
